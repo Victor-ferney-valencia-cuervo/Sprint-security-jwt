@@ -43,7 +43,7 @@ public class SecurityConfig {
                 // Permitir acceso a H2 Console (solo desarrollo)
                 .requestMatchers("/h2-console/**").permitAll()
                 
-                // Proteger POST/PUT/DELETE (escritura)
+                // Proteger/PU POSTT/DELETE (escritura)
                 .requestMatchers(HttpMethod.POST, "/api/v1/books").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/api/v1/books/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/v1/books/**").authenticated()
@@ -70,7 +70,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails adminUser = User.builder()
             .username("admin")
-            .password(passwordEncoder().encode("admin123"))
+//            .password(passwordEncoder().encode("admin123"))
             .roles("ADMIN")
             .build();
 
