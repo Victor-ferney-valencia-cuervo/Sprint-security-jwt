@@ -32,6 +32,9 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
             )
             .authorizeHttpRequests(authz -> authz
+                // Permitir acceso a login sin autenticación
+                .requestMatchers("/login", "/resources/**").permitAll()
+                
                 // Permitir GET (lectura) sin autenticación
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/books").permitAll()
@@ -47,6 +50,10 @@ public class SecurityConfig {
                 
                 // Cualquier otra solicitud requiere autenticación
                 .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
             )
             .httpBasic(basic -> {})
             .headers(headers -> headers
